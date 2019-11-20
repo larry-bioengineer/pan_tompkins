@@ -60,9 +60,9 @@ ecg_m = np.convolve(ecg_s, array_c)
 locs_R, _ = signal.find_peaks(ecg_m, distance=np.round(0.2*fs))
 pks_R = ecg_m[locs_R]
 
-plt.plot(ecg_m)
-plt.plot(locs_R, ecg_m[locs_R], "x")
-plt.show()
+# plt.plot(ecg_m)
+# plt.plot(locs_R, ecg_m[locs_R], "x")
+# plt.show()
 
 
 ##======= Threshold Adjustment
@@ -206,11 +206,20 @@ for i in range(len(locs_R)):
 	ser_back = 0
 
 qrs_i_raw = np.trim_zeros(qrs_i_raw)
-print(qrs_i_raw)
 
-# plt.plot(ecg_f)
-# plt.plot(qrs_i_raw, ecg_f[qrs_i_raw], "x")
-# plt.show()
+
+qrs_i_raw_int = np.ndarray(len(qrs_i_raw), dtype=int)
+print(qrs_i_raw_int)
+count = -1 
+for qrs in qrs_i_raw:
+	count += 1
+	qrs_i_raw_int[count] = int(qrs)
+
+print(qrs_i_raw_int)
+
+plt.plot(ecg_f)
+plt.plot(qrs_i_raw_int, ecg_f[qrs_i_raw_int], "x")
+plt.show()
 
 
 
